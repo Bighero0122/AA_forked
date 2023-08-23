@@ -7,6 +7,8 @@ import '@nomiclabs/hardhat-etherscan'
 import 'solidity-coverage'
 
 import * as fs from 'fs'
+import * as dotenv from "dotenv"
+dotenv.config();
 
 const SALT = '0x90d8084deab30c2a37c45e8d47f49f2f7965183cb6990a98943ef94940681de3'
 process.env.SALT = process.env.SALT ?? SALT
@@ -22,6 +24,13 @@ function getNetwork1 (url: string): { url: string, accounts: { mnemonic: string 
   return {
     url,
     accounts: { mnemonic }
+  }
+}
+
+function getNetwork2 (url: string): { url: string, accounts: string[] } {
+  return {
+    url,
+    accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : []
   }
 }
 
@@ -60,7 +69,8 @@ const config: HardhatUserConfig = {
     localgeth: { url: 'http://localgeth:8545' },
     goerli: getNetwork('goerli'),
     sepolia: getNetwork('sepolia'),
-    proxy: getNetwork1('http://localhost:8545')
+    proxy: getNetwork1('http://localhost:8545'),
+    opstack: getNetwork2('http://localhost:8545')
   },
   mocha: {
     timeout: 10000
