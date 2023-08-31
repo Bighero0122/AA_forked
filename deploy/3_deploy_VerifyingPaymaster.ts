@@ -14,7 +14,7 @@ const deployVerifyingPaymaster: DeployFunction = async function (hre: HardhatRun
       args: [entrypoint.address, from],
       gasLimit: 6e6,
       log: true,
-      deterministicDeployment: true
+      deterministicDeployment: false
     })
   console.log('==VerifyingPaymaster addr=', ret.address)
 }
