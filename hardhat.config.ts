@@ -27,9 +27,9 @@ function getNetwork1 (url: string): { url: string, accounts: { mnemonic: string 
   }
 }
 
-function getNetwork2 (url: string): { url: string, accounts: string[] } {
+function getNetwork2 (): { url: string, accounts: string[] } {
   return {
-    url,
+    url: process.env.RPC_URL ?? 'http://localhost:8545',
     accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : []
   }
 }
@@ -70,7 +70,7 @@ const config: HardhatUserConfig = {
     goerli: getNetwork('goerli'),
     sepolia: getNetwork('sepolia'),
     proxy: getNetwork1('http://localhost:8545'),
-    opstack: getNetwork2('http://localhost:8545')
+    opstack: getNetwork2()
   },
   mocha: {
     timeout: 10000
