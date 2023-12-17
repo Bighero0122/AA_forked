@@ -102,7 +102,7 @@ export class Create2Factory {
       to: Create2Factory.factoryDeployer,
       value: BigNumber.from(Create2Factory.factoryDeploymentFee)
     })
-    await this.provider.sendTransaction(Create2Factory.factoryTx)
+    await (await this.provider.sendTransaction(Create2Factory.factoryTx)).wait()
     if (!await this._isFactoryDeployed()) {
       throw new Error('fatal: failed to deploy deterministic deployer')
     }
